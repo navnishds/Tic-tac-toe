@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".MultiplayerActivity"
+    android:background="#000000" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/player_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="player 1"
+                android:textColor="#FFFFFF"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/player_one_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="25sp"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
+
+            <TextView
+                android:id="@+id/player_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="player 2"
+                android:textSize="25sp"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/player_two_score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textAlignment="textEnd"
+                android:textSize="25sp"
+                android:textColor="#FFFFFF"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/game_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Player 1 move"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="30dp"/>
+
+    <TableLayout
+        android:id="@+id/game_board"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="#FFFFFF">
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/index00"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="#000000"
+                android:gravity="center"
+                android:padding="3dp"
+                android:tag="00"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index01"
+                android:layout_height="match_parent"
+                android:tag="01"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index02"
+                android:layout_height="match_parent"
+                android:tag="02"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/index10"
+                android:layout_height="match_parent"
+                android:tag="10"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:padding="3dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index11"
+                android:layout_height="match_parent"
+                android:tag="11"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index12"
+                android:layout_height="match_parent"
+                android:tag="12"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/index20"
+                android:layout_height="match_parent"
+                android:tag="20"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:padding="3dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginEnd="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index21"
+                android:layout_height="match_parent"
+                android:tag="21"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+            <Button
+                android:id="@+id/index22"
+                android:layout_height="match_parent"
+                android:tag="22"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_marginStart="2dp"
+                android:background="#000000"
+                android:onClick="updateBoard" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/restart_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="#000000"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:text="Restart"
+        android:layout_gravity="center"
+        android:onClick="resetBoard"/>
+
+</LinearLayout>

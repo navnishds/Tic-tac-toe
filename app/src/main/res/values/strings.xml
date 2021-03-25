@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Tic tac toe</string>
+    <string name="title_activity_multiplayer">MultiplayerActivity</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
+    <string name="table_layout_4_open_shortcut">test</string>
+</resources>
