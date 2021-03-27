@@ -18,9 +18,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SinglePlayerActivity"
+            android:label="SingleplayerActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+        <activity
             android:name=".MultiplayerActivity"
             android:label="@string/title_activity_multiplayer"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="sensorPortrait" />
+
     </application>
 
 </manifest>

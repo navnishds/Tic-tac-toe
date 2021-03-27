@@ -7,4 +7,9 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="table_layout_4_open_shortcut">test</string>
+    <string-array name="game_difficulty_array">
+        <item>Medium</item>
+        <item>Easy</item>
+        <item>Impossible</item>
+    </string-array>
 </resources>

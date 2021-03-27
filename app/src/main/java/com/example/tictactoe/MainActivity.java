@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void single_player(View view) {
+        Intent singlePlayer = new Intent(this, SinglePlayerActivity.class);
+        startActivity(singlePlayer);
     }
 
     public void multi_player(View view) {

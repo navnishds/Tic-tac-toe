@@ -1,5 +1,8 @@
 package com.example.tictactoe;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Board {
 
     String[][] board;
@@ -12,9 +15,15 @@ public class Board {
     String currentPlayer;
     int moves;
     String winner = "";
+    int depth = 0;
 
     protected Board(String playerOneName, String playerTwoName) {
         this.board = new String[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = "";
+            }
+        }
         this.playerOneName = playerOneName;
         this.playerTwoName = playerTwoName;
         playerOneScore = 0;
@@ -25,7 +34,7 @@ public class Board {
         moves = 0;
     }
 
-    void checkBoard() {
+    String checkBoard(String[][] board, int moves) {
         for(int i = 0; i < 8; i++) {
             String line = "";
 
@@ -57,27 +66,24 @@ public class Board {
             }
 
             if (line.equals("xxx")) {
-                this.winner = "x";
-                this.incrementScore(this.winner);
-                break;
+                return "x";
             }
             if (line.equals("ooo")) {
-                this.winner = "o";
-                this.incrementScore(this.winner);
-                break;
+                return "o";
             }
         }
-        if (this.moves == 9) {
-            this.winner = "Draw";
+        if (moves == 9) {
+            return "Draw";
         }
+        return "";
     }
 
-    void changePlayer() {
-        if (this.currentPlayer.equals("x")) {
-            this.currentPlayer = "o";
+    String changePlayer(String currentPlayer) {
+        if (currentPlayer.equals("x")) {
+            return "o";
         }
         else {
-            this.currentPlayer = "x";
+            return "x";
         }
     }
 
@@ -87,22 +93,29 @@ public class Board {
         // increment number of moves and if >= 5 check board if any player as won
         this.moves += 1;
         if (this.moves >= 5) {
-            this.checkBoard();
+            this.winner = this.checkBoard(this.board, this.moves);
         }
         // change player turn
         if (this.winner.equals("")) {
-            this.changePlayer();
+            this.currentPlayer = this.changePlayer(this.currentPlayer);
+        }
+        else {
+            this.incrementScore(this.winner);
         }
     }
 
+    boolean gameFinished(String winner) {
+        return !winner.equals("");
+    }
+
     String getWinner() {
-        if (winner.equals(playerOne)) {
-            return playerOneName + " Won!";
+        if (this.winner.equals(this.playerOne)) {
+            return this.playerOneName + " Won!";
         }
-        if (winner.equals(playerTwo)) {
-            return playerTwoName + " Won!";
+        if (this.winner.equals(this.playerTwo)) {
+            return this.playerTwoName + " Won!";
         }
-        return winner;
+        return this.winner;
     }
 
     String getPlayerTurn() {
@@ -118,24 +131,134 @@ public class Board {
         if (playerWon.equals(this.playerOne)) {
             this.playerOneScore += 1;
         }
-        else {
+        if (playerWon.equals(this.playerTwo)) {
             this.playerTwoScore += 1;
         }
     }
 
     void resetBoard() {
-        this.board = new String[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                this.board[i][j] = "";
+            }
+        }
         if (this.playerOne.equals("x")) {
             this.playerOne = "o";
             this.playerTwo = "x";
         }
         else {
             this.playerOne = "x";
-            this.playerTwo = "0";
+            this.playerTwo = "o";
         }
         this.currentPlayer = "x";
         this.winner = "";
         this.moves = 0;
+    }
+
+    void setDifficultyMode(String mode) {
+        if (mode.equals("Easy")) {
+            this.depth = 3;
+        }
+        if (mode.equals("Medium")) {
+            this.depth = 5;
+        }
+        if (mode.equals("Impossible")) {
+            this.depth = 8;
+        }
+    }
+
+    int minMax(String[][] aiBoard, int depth, boolean isMax, String player, int moves) {
+
+        String gameStatus = this.checkBoard(aiBoard, moves);
+        if (gameStatus.equals(this.currentPlayer)) {
+            return 10-depth;
+        }
+        if (gameStatus.equals(changePlayer(this.currentPlayer))) {
+            return -10+depth;
+        }
+        if (gameStatus.equals("Draw") || moves >= 9 || depth >= this.depth) {
+            return 0;
+        }
+
+        if (isMax) {
+            int best = -1000;
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (aiBoard[i][j].equals("")) {
+                        aiBoard[i][j] = player;
+                        best = Math.max(best, minMax(aiBoard, depth + 1, false, changePlayer(player), moves + 1));
+                        aiBoard[i][j] = "";
+                    }
+                }
+            }
+            return best;
+        }
+        else {
+            int best = 1000;
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (aiBoard[i][j].equals("")) {
+                        aiBoard[i][j] = player;
+                        best = Math.min(best, minMax(aiBoard, depth + 1, true, changePlayer(player), moves + 1));
+                        aiBoard[i][j] = "";
+                    }
+                }
+            }
+            return best;
+        }
+    }
+
+    int[] playAI() {
+        int bestValue = -1000;
+        int bestRowMove = -1;
+        int bestColMove = -1;
+//        ArrayList<> bestMoves = new ArrayList<>();
+//        ArrayList<> newBestMoves = new ArrayList<>();
+        String bot = this.currentPlayer;
+
+        String[][] newBoard = new String[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                newBoard[i][j] = this.board[i][j];
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (newBoard[i][j].equals("")){
+                    newBoard[i][j] = bot;
+                    int moveValue = minMax(newBoard, 0, false, this.changePlayer(bot), this.moves+1);
+
+                    newBoard[i][j] = "";
+//                    int[] temp = new int[]{moveValue, i, j};
+//                    bestMoves.add(temp);
+                    if (moveValue > bestValue) {
+                        bestValue = moveValue;
+                        bestRowMove = i;
+                        bestColMove = j;
+                    }
+                }
+            }
+        }
+
+//        for (int i = 0; i < bestMoves.size(); i++) {
+//            int[] temp = bestMoves.get(i);
+//            if (temp[i] == bestValue) {
+//                newBestMoves.add(temp);
+//            }
+//        }
+
+//        if (newBestMoves.size() > 1){
+//            int rnd = new Random().nextInt(newBestMoves.size());
+//            int[] temp = newBestMoves.get(rnd);
+//            bestRowMove = temp[1];
+//            bestColMove = temp[2];
+//        }
+
+        updateMove(bestRowMove, bestColMove);
+        return new int[]{bestRowMove, bestColMove};
     }
 
 }

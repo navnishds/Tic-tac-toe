@@ -1,19 +1,28 @@
 package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.HandlerCompat;
 
 import android.os.Bundle;
-import android.text.Layout;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class MultiplayerActivity extends AppCompatActivity {
+public class SinglePlayerActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     // Create new game board
     private Board board;
@@ -24,12 +33,27 @@ public class MultiplayerActivity extends AppCompatActivity {
     private TextView playerTwo;
     private TableLayout gameBoard;
     private Button restartGame;
+    private Button[][] buttons = new Button[3][3];
+
+    ExecutorService executorService = Executors.newFixedThreadPool(1);
+    Handler mainThreadHandler = HandlerCompat.createAsync(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multiplayer);
-        this.board = new Board("player 1", "player 2");
+        setContentView(R.layout.activity_single_player);
+
+        Spinner spinner = (Spinner) findViewById(R.id.game_mode);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.game_difficulty_array, R.layout.game_mode_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        this.board = new Board("player 1", "bot");
         this.gameMessage = (TextView) findViewById(R.id.game_message);
         this.playerOneScore = (TextView) findViewById(R.id.player_one_score);
         this.playerTwoScore = (TextView) findViewById(R.id.player_two_score);
@@ -37,6 +61,31 @@ public class MultiplayerActivity extends AppCompatActivity {
         this.playerTwo = (TextView) findViewById(R.id.player_two);
         this.gameBoard = (TableLayout) findViewById(R.id.game_board);
         this.restartGame = (Button) findViewById(R.id.restart_game);
+
+        this.playerTwo.setText("bot");
+
+        for (int i = 0; i < 3; i++) {
+            TableRow row = (TableRow) this.gameBoard.getChildAt(i);
+            for (int j = 0; j < 3; j++) {
+                Button button = (Button) row.getChildAt(j);
+                this.buttons[i][j] = button;
+            }
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String mode = (String) adapterView.getItemAtPosition(i);
+        this.board.setDifficultyMode(mode);
+        if (this.board.moves > 0) {
+            stopGame();
+            resetBoard(this.restartGame);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public void updateBoard(View view) {
@@ -84,16 +133,31 @@ public class MultiplayerActivity extends AppCompatActivity {
         }
         else {
             this.gameMessage.setText(this.board.getPlayerTurn());
+            playAI();
+
+            if (!this.board.winner.equals("")) {
+                this.gameMessage.setText(this.board.getWinner());
+                this.stopGame();
+            }
+            else {
+                this.gameMessage.setText(this.board.getPlayerTurn());
+            }
         }
+    }
+
+    void playAI() {
+        int[] moves = board.playAI();
+        Button button = buttons[moves[0]][moves[1]];
+        button.setText(board.board[moves[0]][moves[1]]);
+        button.setEnabled(false);
+        this.gameMessage.setText(this.board.getPlayerTurn());
     }
 
     public void stopGame() {
 
         for (int i = 0; i < 3; i++) {
-            TableRow row = (TableRow) this.gameBoard.getChildAt(i);
             for (int j = 0; j < 3; j++) {
-                Button button = (Button) row.getChildAt(j);
-                button.setEnabled(false);
+                buttons[i][j].setEnabled(false);
             }
         }
         this.playerOneScore.setText(String.valueOf(this.board.playerOneScore));
@@ -105,12 +169,12 @@ public class MultiplayerActivity extends AppCompatActivity {
         this.gameMessage.setText(this.board.getPlayerTurn());
 
         for (int i = 0; i < 3; i++) {
-            TableRow row = (TableRow) this.gameBoard.getChildAt(i);
             for (int j = 0; j < 3; j++) {
-                Button button = (Button) row.getChildAt(j);
-                button.setEnabled(true);
-                button.setText("");
+                buttons[i][j].setEnabled(true);
+                buttons[i][j].setText("");
             }
         }
+        if (this.board.playerTwo.equals(this.board.currentPlayer))
+            playAI();
     }
 }
