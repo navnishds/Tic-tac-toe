@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".MultiplayerActivity"
-    android:background="#000000" >
+    android:background="#FFFFFF" >
 
     <LinearLayout
         android:id="@+id/player_score"
@@ -30,7 +30,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="player 1"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="25sp" />
 
             <TextView
@@ -40,7 +40,7 @@ tools:context=".MultiplayerActivity"
                 android:text="0"
                 android:textAlignment="center"
                 android:textSize="25sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -58,7 +58,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="wrap_content"
                 android:text="player 2"
                 android:textSize="25sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"/>
 
             <TextView
                 android:id="@+id/player_two_score"
@@ -67,7 +67,7 @@ tools:context=".MultiplayerActivity"
                 android:text="0"
                 android:textAlignment="textEnd"
                 android:textSize="25sp"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
@@ -80,7 +80,7 @@ tools:context=".MultiplayerActivity"
         android:text="Player 1 move"
         android:gravity="center"
         android:textSize="25sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:layout_marginTop="30dp"/>
 
     <TableLayout
@@ -89,7 +89,7 @@ tools:context=".MultiplayerActivity"
         android:layout_height="250dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:background="#FFFFFF">
+        android:background="#000000">
 
         <TableRow
             android:layout_weight="1"
@@ -101,12 +101,12 @@ tools:context=".MultiplayerActivity"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
                 android:layout_weight="1"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:gravity="center"
                 android:padding="3dp"
                 android:tag="00"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:onClick="updateBoard" />
 
@@ -115,7 +115,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="01"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -123,7 +123,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
             <Button
@@ -131,14 +131,14 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="02"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
         </TableRow>
@@ -152,14 +152,14 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="10"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:padding="3dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
             <Button
@@ -167,7 +167,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="11"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -175,7 +175,7 @@ tools:context=".MultiplayerActivity"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
             <Button
@@ -183,14 +183,14 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="12"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginBottom="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
         </TableRow>
@@ -204,13 +204,13 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="20"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:padding="3dp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_marginEnd="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
             <Button
@@ -218,14 +218,14 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="21"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginEnd="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
             <Button
@@ -233,13 +233,13 @@ tools:context=".MultiplayerActivity"
                 android:layout_height="match_parent"
                 android:tag="22"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="36sp"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_marginStart="2dp"
-                android:background="#000000"
+                android:background="#FFFFFF"
                 android:onClick="updateBoard" />
 
         </TableRow>
@@ -251,11 +251,12 @@ tools:context=".MultiplayerActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:background="#000000"
-        android:textColor="#FFFFFF"
+        android:background="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="25sp"
         android:text="Restart"
         android:layout_gravity="center"
+        android:padding="10dp"
         android:onClick="resetBoard"/>
 
 </LinearLayout>

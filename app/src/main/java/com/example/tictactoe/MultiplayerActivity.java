@@ -39,6 +39,7 @@ public class MultiplayerActivity extends AppCompatActivity {
         this.restartGame = (Button) findViewById(R.id.restart_game);
     }
 
+    // on select any position update board
     public void updateBoard(View view) {
         String tag = (String) view.getTag();
         int x = 0;
@@ -72,6 +73,7 @@ public class MultiplayerActivity extends AppCompatActivity {
                 x = 2; y = 2;
                 break;
         }
+        // update board and set value and disable selected position
         this.board.updateMove(x, y);
         Button button = findViewById(view.getId());
         button.setText(this.board.board[x][y]);
@@ -82,11 +84,13 @@ public class MultiplayerActivity extends AppCompatActivity {
             this.gameMessage.setText(this.board.getWinner());
             this.stopGame();
         }
+        // display next players turn
         else {
             this.gameMessage.setText(this.board.getPlayerTurn());
         }
     }
 
+    // game finished, stop game by disabling all the position and set new scores
     public void stopGame() {
 
         for (int i = 0; i < 3; i++) {
@@ -100,6 +104,7 @@ public class MultiplayerActivity extends AppCompatActivity {
         this.playerTwoScore.setText(String.valueOf(this.board.playerTwoScore));
     }
 
+    // on selecting reset button, reset game board and enable select option for all position
     public void resetBoard(View view) {
         this.board.resetBoard();
         this.gameMessage.setText(this.board.getPlayerTurn());

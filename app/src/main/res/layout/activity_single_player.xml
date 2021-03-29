@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SinglePlayerActivity"
     android:orientation="vertical"
-    android:background="#000000">
+    android:background="#FFFFFF">
 
     <Spinner
         android:id="@+id/game_mode"

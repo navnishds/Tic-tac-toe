@@ -160,7 +160,7 @@ public class Board {
             this.depth = 3;
         }
         if (mode.equals("Medium")) {
-            this.depth = 5;
+            this.depth = 4;
         }
         if (mode.equals("Impossible")) {
             this.depth = 8;
@@ -214,8 +214,8 @@ public class Board {
         int bestValue = -1000;
         int bestRowMove = -1;
         int bestColMove = -1;
-//        ArrayList<> bestMoves = new ArrayList<>();
-//        ArrayList<> newBestMoves = new ArrayList<>();
+        ArrayList<int[]> bestMoves = new ArrayList<>();
+        ArrayList<int[]> newBestMoves = new ArrayList<>();
         String bot = this.currentPlayer;
 
         String[][] newBoard = new String[3][3];
@@ -232,8 +232,8 @@ public class Board {
                     int moveValue = minMax(newBoard, 0, false, this.changePlayer(bot), this.moves+1);
 
                     newBoard[i][j] = "";
-//                    int[] temp = new int[]{moveValue, i, j};
-//                    bestMoves.add(temp);
+                    int[] temp = new int[]{moveValue, i, j};
+                    bestMoves.add(temp);
                     if (moveValue > bestValue) {
                         bestValue = moveValue;
                         bestRowMove = i;
@@ -243,19 +243,19 @@ public class Board {
             }
         }
 
-//        for (int i = 0; i < bestMoves.size(); i++) {
-//            int[] temp = bestMoves.get(i);
-//            if (temp[i] == bestValue) {
-//                newBestMoves.add(temp);
-//            }
-//        }
+        for (int i = 0; i < bestMoves.size(); i++) {
+            int[] temp = bestMoves.get(i);
+            if (temp[0] == bestValue) {
+                newBestMoves.add(temp);
+            }
+        }
 
-//        if (newBestMoves.size() > 1){
-//            int rnd = new Random().nextInt(newBestMoves.size());
-//            int[] temp = newBestMoves.get(rnd);
-//            bestRowMove = temp[1];
-//            bestColMove = temp[2];
-//        }
+        if (newBestMoves.size() > 1){
+            int rnd = new Random().nextInt(newBestMoves.size());
+            int[] temp = newBestMoves.get(rnd);
+            bestRowMove = temp[1];
+            bestColMove = temp[2];
+        }
 
         updateMove(bestRowMove, bestColMove);
         return new int[]{bestRowMove, bestColMove};

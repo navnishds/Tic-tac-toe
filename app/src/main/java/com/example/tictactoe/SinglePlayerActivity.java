@@ -64,6 +64,7 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
 
         this.playerTwo.setText("bot");
 
+        // get all the board position
         for (int i = 0; i < 3; i++) {
             TableRow row = (TableRow) this.gameBoard.getChildAt(i);
             for (int j = 0; j < 3; j++) {
@@ -73,6 +74,7 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
+    // on select game mode, if game in progress reset board
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String mode = (String) adapterView.getItemAtPosition(i);
@@ -88,6 +90,7 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
 
     }
 
+    // on select any position update board
     public void updateBoard(View view) {
         String tag = (String) view.getTag();
         int x = 0;
@@ -121,16 +124,18 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
                 x = 2; y = 2;
                 break;
         }
+        // update board and set value and disable selected position
         this.board.updateMove(x, y);
         Button button = findViewById(view.getId());
         button.setText(this.board.board[x][y]);
         button.setEnabled(false);
 
-        // check if any player won or if its a draw
+        // check if any player won or if its a draw, if finished call stop game function
         if (!this.board.winner.equals("")) {
             this.gameMessage.setText(this.board.getWinner());
             this.stopGame();
         }
+        // display next player turn and call AI to play its turn
         else {
             this.gameMessage.setText(this.board.getPlayerTurn());
             playAI();
@@ -139,12 +144,14 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
                 this.gameMessage.setText(this.board.getWinner());
                 this.stopGame();
             }
+            // display next players turn
             else {
                 this.gameMessage.setText(this.board.getPlayerTurn());
             }
         }
     }
 
+    // AI play using MiniMax algorithm
     void playAI() {
         int[] moves = board.playAI();
         Button button = buttons[moves[0]][moves[1]];
@@ -153,6 +160,7 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
         this.gameMessage.setText(this.board.getPlayerTurn());
     }
 
+    // game finished, stop game by disabling all the position and set new scores
     public void stopGame() {
 
         for (int i = 0; i < 3; i++) {
@@ -164,6 +172,7 @@ public class SinglePlayerActivity extends AppCompatActivity implements AdapterVi
         this.playerTwoScore.setText(String.valueOf(this.board.playerTwoScore));
     }
 
+    // on selecting reset button, reset game board and enable select option for all position
     public void resetBoard(View view) {
         this.board.resetBoard();
         this.gameMessage.setText(this.board.getPlayerTurn());

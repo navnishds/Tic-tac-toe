@@ -19,12 +19,12 @@
         </activity>
         <activity
             android:name=".SinglePlayerActivity"
-            android:label="SingleplayerActivity"
+            android:label="Single player"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
         <activity
             android:name=".MultiplayerActivity"
-            android:label="@string/title_activity_multiplayer"
+            android:label="Multi player"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="sensorPortrait" />
 
